@@ -394,19 +394,19 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $('.user-profile-upload-name h2 button').click(function () {
-        $('span.user-name-dropdown').slideToggle('fast');
-        event.stopPropagation();
-    });
-    $(document).click(function () {
-        $('span.user-name-dropdown').slideUp('fast');
-        event.stopPropagation();
-    });
-    $('span.user-name-dropdown').click(function () {
-        event.stopPropagation();
-    });
-});
+// $(document).ready(function () {
+//     $('.user-profile-upload-name h2 button').click(function () {
+//         $('span.user-name-dropdown').slideToggle('fast');
+//         event.stopPropagation();
+//     });
+//     $(document).click(function () {
+//         $('span.user-name-dropdown').slideUp('fast');
+//         event.stopPropagation();
+//     });
+//     $('span.user-name-dropdown').click(function () {
+//         event.stopPropagation();
+//     });
+// });
 
 // COMPLETE-YOUR-PROFILE
 

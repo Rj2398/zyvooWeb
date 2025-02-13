@@ -21,7 +21,7 @@ const AuthModal = () => {
   const [canResend, setCanResend] = useState(false);
 
   const user = useSelector((state) => state?.user?.userInfo);
-  console.log(user, "hello user data");
+  // console.log(user, "hello user data");
 
   const onSubmit = async (data, event) => {
     event?.preventDefault(); // Prevent default form behavior

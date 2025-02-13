@@ -27,8 +27,6 @@ import PaymentHost from "../pages/hostPage/PaymentHost";
 import ProfileHost from "../pages/hostPage/ProfileHost";
 import NotificationHost from "../pages/hostPage/Notification-Host";
 import HelpCenterHost from "../pages/hostPage/HelpCenterHost";
-import TermsCondn from "../pages/guestPage/TermsCondn";
-import PrivacyPolicy from "../pages/guestPage/PrivacyPolicy";
 
 const Routers = () => {
   return (
@@ -60,8 +58,6 @@ const Routers = () => {
       <Route path="/notification-host" element={<NotificationHost />} />
       <Route path="/Profile-host" element={<ProfileHost />} />
       <Route path="/helpCenterHost" element={<HelpCenterHost />} />
-      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-      <Route path="/terms-condn" element={<TermsCondn />} />
       <Route path="*" element={<h1>Page Not Found</h1>} />
     </Routes>
   );

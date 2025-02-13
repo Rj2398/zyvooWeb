@@ -4,10 +4,9 @@ import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import VerificationModal from "./VerificationModal";
-import Loader from "../../Loader";
 
 function ForgotWithEmail({ show, handleClose }) {
-  const { forgot_password_email, isLoading } = useAuth();
+  const { forgot_password_email } = useAuth();
   const [verificationByEmailModal, setVerifictionByEmailModal] =
     useState(false);
   //
@@ -25,7 +24,6 @@ function ForgotWithEmail({ show, handleClose }) {
       });
       if (response) {
         console.log(response, "hello response user data");
-        handleClose();
         setVerifictionByEmailModal(true);
       }
     } catch (error) {
@@ -36,7 +34,6 @@ function ForgotWithEmail({ show, handleClose }) {
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
-        <Loader visible={isLoading} />
         <Modal.Header closeButton>
           <Modal.Title className="w-100 text-center">
             Forgot Password

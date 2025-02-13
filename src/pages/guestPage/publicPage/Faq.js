@@ -2,12 +2,8 @@ import React from "react";
 import Header from "../../../components/guest/Header";
 import Footer from "../../../components/guest/Footer";
 import { Link } from "react-router-dom";
-import useContent from "../../../hooks/useContent";
 
 const Faq = () => {
-  // const { FaqData } = useContent();
-  // console.log(FaqData, "faq data comes form this");
-
   return (
     <>
       <Header />

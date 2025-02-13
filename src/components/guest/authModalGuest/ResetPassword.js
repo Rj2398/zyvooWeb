@@ -4,11 +4,10 @@ import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../hooks/useAuth";
 import { useSelector } from "react-redux";
-import Loader from "../../Loader";
 
 const ResetPassword = ({ show, handleClose }) => {
   const user = useSelector((state) => state?.user?.userInfo);
-  const { reset_password, isLoading } = useAuth();
+  const { reset_password } = useAuth();
   const {
     register,
     handleSubmit,
@@ -34,7 +33,6 @@ const ResetPassword = ({ show, handleClose }) => {
   return (
     <>
       <Modal show={show} onHide={handleClose} centered>
-        <Loader visible={isLoading} />
         <Modal.Header closeButton>
           <Modal.Title className="w-100 text-center">New Password</Modal.Title>
         </Modal.Header>

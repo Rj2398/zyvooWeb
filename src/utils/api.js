@@ -1,6 +1,6 @@
 import axios from "axios";
 import { KEYS, baseURL } from "../config/Constant";
-// import { clearUser } from "../store/slices/userSlice";
+import { clearUser } from "../store/slices/userSlice";
 import store from "../store";
 
 // Create axios instances
@@ -26,59 +26,21 @@ const api = axios.create({
 });
 
 // Request interceptor for guestApi
-// guestApi.interceptors.request.use(
-//   async (config) => {
-//     try {
-//       const { userInfo } = store.getState().user;
-//       let token = userInfo?.token;
-//       console.log(token, "sstored data comes form this");
-
-//       // Use localStorage instead of AsyncStorage for web
-//       const storedUserString = JSON.parse(localStorage.getItem(KEYS.USER_INFO));
-
-//       token = storedUserString?.access_token || token;
-//       if (token) {
-//         config.headers["Authorization"] = token ? `Bearer ${token}` : "";
-//       } else {
-//         console.log("No token found");
-//       }
-
-//       return config;
-//     } catch (error) {
-//       console.error("Error in interceptor", error);
-//       return Promise.reject(error);
-//     }
-//   },
-//   (error) => {
-//     return Promise.reject(error); // Handle request errors
-//   }
-// );
 guestApi.interceptors.request.use(
   async (config) => {
     try {
       const { userInfo } = store.getState().user;
-      let token = userInfo?.token;
-      console.log("Token from Redux:", token);
+      // let token = userInfo?.token;
+      let token = '413|COwkmlFbenXIaowOB5mSOBD0GFjh0QB0aufeOFVI5ecc2962'
 
-      // Use localStorage for web
-      const storedUserString = localStorage.getItem(KEYS.USER_INFO);
-      console.log("Stored User String:", storedUserString);
-
-      if (storedUserString) {
-        try {
-          // const parsedUser = JSON.parse(storedUserString);
-          const parsedUser = JSON.parse(storedUserString);
-          token = parsedUser?.access_token || token;
-          console.log("Final Token:", token);
-        } catch (parseError) {
-          console.error("Error parsing localStorage token:", parseError);
-        }
-      }
+      // Use localStorage instead of AsyncStorage for web
+      const storedUserString = JSON.parse(localStorage.getItem(KEYS.USER_INFO));
+      token = storedUserString?.access_token || token;
 
       if (token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
+        config.headers["Authorization"] = token ? `Bearer ${token}` : "";
       } else {
-        console.warn("No token found, API request might be unauthorized.");
+        console.log("No token found");
       }
 
       return config;
@@ -88,9 +50,10 @@ guestApi.interceptors.request.use(
     }
   },
   (error) => {
-    return Promise.reject(error);
+    return Promise.reject(error); // Handle request errors
   }
 );
+
 // Request interceptor for formDataApi
 formDataApi.interceptors.request.use(
   async (config) => {
@@ -158,7 +121,7 @@ api.interceptors.response.use(
 
     // Special handling for unauthorized access
     if (err.response?.status === 401) {
-      // store.dispatch(clearUser());
+      store.dispatch(clearUser());
     }
 
     return Promise.reject(errorResponse);

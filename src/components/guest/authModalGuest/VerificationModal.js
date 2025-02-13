@@ -6,15 +6,12 @@ import useAuth from "../../../hooks/useAuth";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ResetPassword from "./ResetPassword";
-import Loader from "../../Loader";
 
 function VerificationModal({
   show,
   onHide,
   LoginVerification,
   veficationByEmailOpen,
-  regiserMail,
-  createPassword,
 }) {
   //
   const navigate = useNavigate();
@@ -29,10 +26,6 @@ function VerificationModal({
     registerUser,
     otp_verify_login_phone,
     otp_verify_forgot_password,
-    otp_verify_signup_email,
-    signup_email,
-    forgot_password_email,
-    isLoading,
   } = useAuth();
   //
   const [error, setError] = useState(null);
@@ -47,7 +40,7 @@ function VerificationModal({
 
   const user = useSelector((state) => state?.user?.userInfo);
 
-  console.log(user, createPassword, "hello user comes form usr output");
+  // console.log(user, "hello user comes form usr output");
 
   //
 
@@ -77,17 +70,7 @@ function VerificationModal({
     console.log(LoginVerification, "get data sdfashfdksahfd");
 
     try {
-      if (regiserMail === "regiserMail") {
-        const responseMail = await otp_verify_signup_email({
-          temp_id: user?.temp_id,
-          otp: otp,
-        });
-        if (responseMail) {
-          console.log(responseMail, "response *** of verifiy otp");
-          onHide();
-          navigate("/create-profile");
-        }
-      } else if (veficationByEmailOpen === "veficationByEmailOpen") {
+      if (veficationByEmailOpen == "veficationByEmailOpen") {
         const emailResponse = await otp_verify_forgot_password({
           user_id: user?.user_id,
           otp: otp,
@@ -178,53 +161,16 @@ function VerificationModal({
 
   const resendApi = async () => {
     try {
-      // let user_num = user?.otp_send_to; // "+919958717309"
-      // let clean_num = user_num.replace(/^(\+91)/, "");
+      let user_num = user?.otp_send_to; // "+919958717309"
+      let clean_num = user_num.replace(/^(\+91)/, "");
 
-      let user_num = user?.otp_send_to; // Example: "+919958717309", "+11234567890", "+441234567890"
-
-      // List of possible country codes
-      const countryCodes = ["+91", "+1", "+44", "+61", "+971"]; // Add more as needed
-
-      // Find matching country code
-      let country_code =
-        countryCodes.find((code) => user_num.startsWith(code)) || "";
-
-      // Remove the country code to get the clean number
-      let clean_num = country_code
-        ? user_num.replace(country_code, "")
-        : user_num;
-
-      console.log("Country Code:", country_code); // Output: "+91"
-      console.log("Clean Number:", clean_num); // Output: "9958717309"
-
-      if (regiserMail === "regiserMail") {
-        const emailResponse = await signup_email({
-          email: user?.otp_send_to,
-          password: createPassword,
-          fcm_token: "fg446654g6fdgg",
-          device_type: "web",
-        });
-        if (emailResponse) {
-          console.log(
-            emailResponse,
-            "resent otp response on the email login verification"
-          );
-        }
-      } else if (veficationByEmailOpen === "veficationByEmailOpen") {
-        const emailResponse = await forgot_password_email({
-          email: user?.email,
-        });
-        console.log(emailResponse, "email response data comes");
-      } else {
-        const response = await registerUser({
-          phone_number: clean_num, // Use dynamic value
-          country_code: country_code,
-          fcm_token: "bfbfb498b4644",
-          device_type: "web",
-        });
-        console.log(response, "resend with phone numbers");
-      }
+      const response = await registerUser({
+        phone_number: clean_num, // Use dynamic value
+        country_code: "+91",
+        fcm_token: "bfbfb498b4644",
+        device_type: "web",
+      });
+      console.log(response, "resend user name");
     } catch (error) {
       console.log(error);
     }
@@ -239,7 +185,6 @@ function VerificationModal({
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Loader visible={isLoading} />
         <Modal.Header closeButton>
           <Modal.Title className="w-100 text-center">
             OTP Verification
@@ -255,8 +200,7 @@ function VerificationModal({
           }}
         >
           <p className="mb-3">
-            Please type the verification code sent to{" "}
-            <b>{user?.otp_send_to || user?.email}</b>
+            Please type the verification code sent to <b>{user?.otp_send_to}</b>
           </p>
           <form
             className="mb-3"
