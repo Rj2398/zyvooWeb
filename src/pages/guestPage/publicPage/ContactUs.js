@@ -1,43 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import Header from "../../../components/guest/Header";
 import Footer from "../../../components/guest/Footer";
 import AuthModal from "../../../components/guest/authModal";
-import { useSelector } from "react-redux";
-import useContent from "../../../hooks/useContent";
-import { useForm } from "react-hook-form";
-//
 
 const ContactUs = () => {
-  const { contact_us } = useContent();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-  const user = useSelector((state) => state.user);
-  console.log(user?.userInfo?.user_id, "hello user data comes from this");
-
-  const onSubmit = async (data) => {
-    console.log("Form Submitted:", data);
-
-    try {
-      const response = await contact_us({
-        user_id: user?.userInfo?.user_id, // Default user_id as fallback
-        name: data.name,
-        email: data.email,
-        message: data.message,
-      });
-
-      console.log("Response:", response); // Debug response
-      if (response) {
-        reset();
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Failed to send message. Please try again.");
-    }
-  };
   return (
     <>
       <Header />
@@ -107,58 +73,17 @@ const ContactUs = () => {
                   <h2>Help & Contact</h2>
                   <div className="contact-help-in">
                     <h3>Contact Us</h3>
-
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                      <input
-                        type="text"
-                        placeholder="Your Name"
-                        {...register("name", { required: "Name is required" })}
-                      />
-                      {errors.name && <p>{errors.name.message}</p>}
-
-                      <input
-                        type="text"
-                        placeholder="Your Email"
-                        {...register("email", {
-                          required: "email is required",
-                          pattern: {
-                            value:
-                              /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                            message: "Invalid email address",
-                          },
-                        })}
-                      />
-                      {errors.email && <p>{errors.email.message}</p>}
-
-                      {/* <input
-                        type="email"
-                        placeholder="Your Email"
-                        {...register("email", {
-                          required: "Email is required",
-                          pattern: {
-                            value:
-                              /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-                            message: "Invalid email address",
-                          },
-                        })}
-                      />
-                      {errors.email && <p>{errors.email.message}</p>} */}
-
+                    <form>
+                      <input type="text" placeholder="Your Name" />
+                      <input type="text" placeholder="Your Email" />
                       <label>Message</label>
-                      <textarea
-                        {...register("message", {
-                          required: "Message is required",
-                        })}
-                      />
-                      {errors.message && <p>{errors.message.message}</p>}
-
-                      <div className="captcha">
+                      <textarea></textarea>
+                      <div className="captha">
                         <img
                           src="https://design.yilstaging.com/ZYVO/assets/images/captcha.svg"
-                          alt="Captcha"
+                          alt=""
                         />
                       </div>
-
                       <input type="submit" value="Submit" />
                     </form>
                   </div>

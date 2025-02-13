@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./slices/userSlice";
-
-import contentSlice from "./slices/contentSlice";
+import userProfile from "./slices/profileSlice"
 
 const store = configureStore({
   reducer: {
     user: userReducer,
-    content: contentSlice,
+    profile: userProfile
   },
 });
 

@@ -5,5 +5,6 @@ export const KEYS = {
 
   DEVICE_TOKEN: "DEVICE_TOKEN",
 };
+export const GOOGLE_KEY = "AIzaSyC9NuN_f-wESHh3kihTvpbvdrmKlTQurxw";
 
 let selectedFlow = "guest";

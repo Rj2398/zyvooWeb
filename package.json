@@ -13,6 +13,7 @@
     "react-bootstrap": "^2.10.9",
     "react-country-region-selector": "^4.0.2",
     "react-dom": "^18.0.0",
+    "react-google-autocomplete": "^2.7.4",
     "react-hook-form": "^7.54.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.3",

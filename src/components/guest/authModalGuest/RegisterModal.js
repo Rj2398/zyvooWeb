@@ -8,8 +8,6 @@ import VerificationModal from "./VerificationModal";
 import useAuth from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import ForgotWithEmail from "./ForgotWithEmail";
-import EmailLoginModal from "./LoginWithEmail";
-import Loader from "../../Loader";
 
 function RegisterModal(props) {
   const navigate = useNavigate();
@@ -18,15 +16,7 @@ function RegisterModal(props) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { registerUser, numOtpVerify, LoginWithPhone, isLoading } = useAuth();
-
-  //
-
-  const [switchLogin, setSwitchLogin] = useState(false);
-
-  //
-  const [logigWithEmailModle, setLoingWithEmailModle] = useState(false);
-
+  const { registerUser, numOtpVerify, LoginWithPhone } = useAuth();
   //
   const [selectedCountry, setSelectedCountry] = useState("India"); // Default country
   //
@@ -90,7 +80,6 @@ function RegisterModal(props) {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Loader visible={isLoading} />
         <Modal.Header closeButton>
           <Modal.Title
             id="contained-modal-title-vcenter"
@@ -169,43 +158,10 @@ function RegisterModal(props) {
           <p>-OR-</p>
           <p>Login with</p>
           <div className="login-with-icons d-flex justify-content-center">
-            {/* <ul className="list-unstyled d-flex gap-3">
-              {["google", "facebook", "apple", "mail"].map((provider) => (
-                <li key={provider}>
-                  <a href="#">
-                    <img
-                      src={`https://design.yilstaging.com/ZYVO/assets/images/popups/${provider}.svg`}
-                      alt={`${provider} Login`}
-                      width="40"
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul> */}
-
             <ul className="list-unstyled d-flex gap-3">
               {["google", "facebook", "apple", "mail"].map((provider) => (
                 <li key={provider}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      if (provider === "mail") {
-                        e.preventDefault();
-
-                        if (props?.loginModal) {
-                          setLoingWithEmailModle(true);
-
-                          props?.onHide();
-                          setSwitchLogin(false);
-                        } else {
-                          setLoingWithEmailModle(true);
-
-                          props?.onHide();
-                          setSwitchLogin(true);
-                        }
-                      }
-                    }}
-                  >
+                  <a href="#">
                     <img
                       src={`https://design.yilstaging.com/ZYVO/assets/images/popups/${provider}.svg`}
                       alt={`${provider} Login`}
@@ -220,12 +176,7 @@ function RegisterModal(props) {
           <hr />
           <p>Already have an account?</p>
           <div className="bottom-btn">
-            <Button
-              variant="link"
-              onClick={() => {
-                props.onHide();
-              }}
-            >
+            <Button variant="link" onClick={props.onHide}>
               Login Here
             </Button>
           </div>
@@ -240,13 +191,6 @@ function RegisterModal(props) {
       <ForgotWithEmail
         show={forgotEmailModal}
         handleClose={() => setForgotemailModal(false)}
-      />
-      <EmailLoginModal
-        show={logigWithEmailModle}
-        handleClose={() => {
-          setLoingWithEmailModle(false);
-        }}
-        toggleModel={switchLogin}
       />
     </>
   );

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { KEYS } from "../../config/Constant";
+import { KEYS } from "../../config/Constant";
 
 const initialState = {
   userInfo: null,
@@ -22,7 +22,7 @@ export const userSlice = createSlice({
     clearUser: (state) => {
       state.userInfo = null;
       // Remove user info from localStorage
-      // localStorage.removeItem(KEYS.USER_INFO);
+      localStorage.removeItem(KEYS.USER_INFO);
     },
   },
 });
